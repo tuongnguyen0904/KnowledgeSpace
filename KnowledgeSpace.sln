@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KnowledgeSpace.BackendServer", "src\KnowledgeSpace.BackendServer\KnowledgeSpace.BackendServer.csproj", "{ED41ED38-7DCA-402D-9A2B-7C98253F658C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KnowledgeSpace.WebPortal", "src\KnowledgeSpace.WebPortal\KnowledgeSpace.WebPortal.csproj", "{B4F5278C-42C7-4CBB-BC8A-88A500BF93BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KnowledgeSpace.ViewModels", "src\KnowledgeSpace.ViewModels\KnowledgeSpace.ViewModels.csproj", "{FBA7BF28-ABD3-4BD8-A3CF-810556CA0FC7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ED41ED38-7DCA-402D-9A2B-7C98253F658C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED41ED38-7DCA-402D-9A2B-7C98253F658C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED41ED38-7DCA-402D-9A2B-7C98253F658C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED41ED38-7DCA-402D-9A2B-7C98253F658C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4F5278C-42C7-4CBB-BC8A-88A500BF93BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4F5278C-42C7-4CBB-BC8A-88A500BF93BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4F5278C-42C7-4CBB-BC8A-88A500BF93BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4F5278C-42C7-4CBB-BC8A-88A500BF93BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBA7BF28-ABD3-4BD8-A3CF-810556CA0FC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBA7BF28-ABD3-4BD8-A3CF-810556CA0FC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBA7BF28-ABD3-4BD8-A3CF-810556CA0FC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBA7BF28-ABD3-4BD8-A3CF-810556CA0FC7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
