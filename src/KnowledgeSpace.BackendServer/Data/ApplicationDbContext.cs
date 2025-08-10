@@ -54,6 +54,8 @@ namespace KnowledgeSpace.BackendServer.Data
                        .HasKey(c => new { c.CommandId, c.FunctionId });
 
             builder.HasSequence("KnowledgeBaseSequence");
+
+            builder.Entity<KnowledgeBase>().HasData();
         }
 
         public DbSet<Command> Commands { set; get; }
