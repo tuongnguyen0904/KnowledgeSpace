@@ -55,7 +55,7 @@ namespace KnowledgeSpace.BackendServer.Data
 
             builder.HasSequence("KnowledgeBaseSequence");
 
-            builder.Entity<KnowledgeBase>().HasData();
+           // builder.Entity<KnowledgeBase>().HasData();
         }
 
         public DbSet<Command> Commands { set; get; }

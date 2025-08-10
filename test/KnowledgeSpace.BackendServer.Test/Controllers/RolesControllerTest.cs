@@ -36,7 +36,7 @@ public class RolesControllerTest
     {
         _mockRoleManager.Setup(r => r.CreateAsync(It.IsAny<IdentityRole>())).ReturnsAsync(IdentityResult.Success);
         var roleController = new RolesController(_mockRoleManager.Object);
-        var result = await roleController.PostRole(new RoleVm()
+        var result = await roleController.PostRole(new RoleCreateRequest()
         {
             Id = "test",
             Name = "test"
@@ -51,7 +51,7 @@ public class RolesControllerTest
     {
         _mockRoleManager.Setup(r => r.CreateAsync(It.IsAny<IdentityRole>())).ReturnsAsync(IdentityResult.Failed(new IdentityError()));
         var roleController = new RolesController(_mockRoleManager.Object);
-        var result = await roleController.PostRole(new RoleVm()
+        var result = await roleController.PostRole(new RoleCreateRequest()
         {
             Id = "test",
             Name = "test"

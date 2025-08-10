@@ -2,9 +2,9 @@ using FluentValidation;
 
 namespace KnowledgeSpace.ViewModels.Systems;
 
-public class RoleVmValidator : AbstractValidator<RoleVm>
+public class RoleCreateRequestValidator : AbstractValidator<RoleCreateRequest>
 {
-    public RoleVmValidator()
+    public RoleCreateRequestValidator()
     {
         RuleFor(x => x.Id)
             .NotEmpty().WithMessage("Role id is required.")
