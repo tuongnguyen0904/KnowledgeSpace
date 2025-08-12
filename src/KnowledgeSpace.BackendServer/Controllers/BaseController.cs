@@ -5,8 +5,7 @@ namespace KnowledgeSpace.BackendServer.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-[Authorize]
+[Authorize("Bearer")]
 public class BaseController : ControllerBase
 {
-    
 }

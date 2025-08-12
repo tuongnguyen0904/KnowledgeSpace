@@ -1,6 +1,11 @@
-namespace KnowledgeSpace.ViewModels.Systems;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
-public class UpdatePermissionRequest
+namespace KnowledgeSpace.ViewModels.Systems
 {
-    public List<PermissionVm> Permissions { get; set; } = new List<PermissionVm>();
+    public class UpdatePermissionRequest
+    {
+        public List<PermissionVm> Permissions { get; set; } = new List<PermissionVm>();
+    }
 }

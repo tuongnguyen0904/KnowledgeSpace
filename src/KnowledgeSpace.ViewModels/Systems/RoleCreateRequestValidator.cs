@@ -1,17 +1,18 @@
 using FluentValidation;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace KnowledgeSpace.ViewModels.Systems;
-
-public class RoleCreateRequestValidator : AbstractValidator<RoleCreateRequest>
+namespace KnowledgeSpace.ViewModels.Systems
 {
-    public RoleCreateRequestValidator()
+    public class RoleCreateRequestValidator : AbstractValidator<RoleCreateRequest>
     {
-        RuleFor(x => x.Id)
-            .NotEmpty().WithMessage("Role id is required.")
-            .MinimumLength(10).WithMessage("Role id must be at least 10 characters long.");
-        RuleFor(x => x.Name)
-            .NotEmpty().WithMessage("Role name is required.")
-            .MinimumLength(10).WithMessage("Role name must be at least 10 characters long.");
+        public RoleCreateRequestValidator()
+        {
+            RuleFor(x => x.Id).NotEmpty().WithMessage("Id value is required")
+                .MaximumLength(50).WithMessage("Role id cannot over limit 50 characters");
+
+            RuleFor(x => x.Name).NotEmpty().WithMessage("Role name is required");
+        }
     }
-    
 }

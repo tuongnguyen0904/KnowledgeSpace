@@ -6,10 +6,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KnowledgeSpace.WebPortal", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KnowledgeSpace.ViewModels", "src\KnowledgeSpace.ViewModels\KnowledgeSpace.ViewModels.csproj", "{FBA7BF28-ABD3-4BD8-A3CF-810556CA0FC7}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{2990D14B-0986-42F4-9976-7994B7585C5E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KnowledgeSpace.BackendServer.Test", "test\KnowledgeSpace.BackendServer.Test\KnowledgeSpace.BackendServer.Test.csproj", "{284DBD08-2846-44CB-B439-21C702D0E6BC}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,12 +24,7 @@ Global
 		{FBA7BF28-ABD3-4BD8-A3CF-810556CA0FC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FBA7BF28-ABD3-4BD8-A3CF-810556CA0FC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FBA7BF28-ABD3-4BD8-A3CF-810556CA0FC7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{284DBD08-2846-44CB-B439-21C702D0E6BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{284DBD08-2846-44CB-B439-21C702D0E6BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{284DBD08-2846-44CB-B439-21C702D0E6BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{284DBD08-2846-44CB-B439-21C702D0E6BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{284DBD08-2846-44CB-B439-21C702D0E6BC} = {2990D14B-0986-42F4-9976-7994B7585C5E}
 	EndGlobalSection
 EndGlobal

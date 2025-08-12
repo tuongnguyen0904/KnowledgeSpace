@@ -1,8 +1,15 @@
-namespace KnowledgeSpace.ViewModels.Systems;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
-public class UserPasswordChangeRequest
+namespace KnowledgeSpace.ViewModels.Systems
 {
-    public string UserId { get; set; }
-    public string CurrentPassword { get; set; }
-    public string NewPassword { get; set; }
+    public class UserPasswordChangeRequest
+    {
+        public string UserId { get; set; }
+
+        public string CurrentPassword { get; set; }
+
+        public string NewPassword { get; set; }
+    }
 }

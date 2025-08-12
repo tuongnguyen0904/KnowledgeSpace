@@ -1,8 +1,15 @@
-namespace KnowledgeSpace.ViewModels.Systems;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
-public class PermissionVm
+namespace KnowledgeSpace.ViewModels.Systems
 {
-    public string FunctionId { get; set; }
-    public string RoleId { get; set; }
-    public string CommandId { get; set; }
+    public class PermissionVm
+    {
+        public string FunctionId { get; set; }
+
+        public string RoleId { get; set; }
+
+        public string CommandId { get; set; }
+    }
 }

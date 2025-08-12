@@ -1,11 +1,16 @@
+using System.Configuration;
 using FluentValidation;
+using FluentValidation.AspNetCore;
 using KnowledgeSpace.BackendServer.Data;
 using KnowledgeSpace.BackendServer.Data.Entities;
+using KnowledgeSpace.BackendServer.Extensions;
 using KnowledgeSpace.BackendServer.IdentityServer;
 using KnowledgeSpace.BackendServer.Services;
+using KnowledgeSpace.ViewModels;
 using KnowledgeSpace.ViewModels.Systems;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Serilog;
@@ -51,38 +56,12 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowSwaggerUI", policy =>
-    {
-        policy.WithOrigins("https://localhost:5000") // Swagger origin
-            .AllowAnyHeader()
-            .AllowAnyMethod();
-    });
-});
-
 builder.Services.AddDbContextPool<ApplicationDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddIdentity<User, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
-
-builder.Services.AddAuthentication()
-    .AddLocalApi("Bearer", option =>
-    {
-        option.ExpectedScope = "api.knowledgespace";
-    });
-
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy("Bearer", policy =>
-    {
-        policy.AddAuthenticationSchemes("Bearer");
-        policy.RequireAuthenticatedUser();
-    });
-});
 
 builder.Services.AddIdentityServer(options =>
     {
@@ -96,7 +75,18 @@ builder.Services.AddIdentityServer(options =>
     .AddInMemoryClients(Config.Clients)
     .AddInMemoryIdentityResources(Config.Ids)
     .AddAspNetIdentity<User>()
+    .AddProfileService<IdentityProfileService>()
     .AddDeveloperSigningCredential();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSwaggerUI", policy =>
+    {
+        policy.WithOrigins("https://localhost:5000") // Swagger origin
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
 
 builder.Services.Configure<IdentityOptions>(options =>
 {
@@ -113,6 +103,26 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.User.RequireUniqueEmail = true;
 });
 
+builder.Services.Configure<ApiBehaviorOptions>(options =>
+{
+    options.SuppressModelStateInvalidFilter = true;
+});
+
+builder.Services.AddAuthentication()
+    .AddLocalApi("Bearer", option =>
+    {
+        option.ExpectedScope = "api.knowledgespace";
+    });
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("Bearer", policy =>
+    {
+        policy.AddAuthenticationSchemes("Bearer");
+        policy.RequireAuthenticatedUser();
+    });
+});
+
 builder.Services.AddRazorPages(options =>
 {
     options.Conventions.AddAreaFolderRouteModelConvention("Identity", "/Account/", model =>
@@ -126,8 +136,19 @@ builder.Services.AddRazorPages(options =>
     });
 });
 
+builder.Services.AddControllersWithViews()
+    .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<RoleCreateRequestValidator>());
+
 builder.Services.AddTransient<DbInitializer>();
 builder.Services.AddTransient<IEmailSender, EmailSenderService>();
+builder.Services.AddTransient<ISequenceService, SequenceService>();
+
+builder.Services.AddTransient<IStorageService, FileStorageService>();
+builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
+builder.Services.AddTransient<IViewRenderService, ViewRenderService>();
+builder.Services.AddTransient<ICacheService, DistributedCacheService>();
+builder.Services.AddTransient<IOneSignalService, OneSignalService>();
+
 builder.Host.UseSerilog();
 
 var app = builder.Build();
@@ -158,18 +179,33 @@ if (app.Environment.IsDevelopment())
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "Knowledge Space API V1");
     });
 }
+
 app.UseStaticFiles();
+
 app.UseIdentityServer();
+
 app.UseAuthentication();
+
+app.UseHttpsRedirection();
 
 app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapControllers();
+app.UseCors();
 
-app.MapRazorPages();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapDefaultControllerRoute();
+    endpoints.MapRazorPages();
+});
 
-app.UseCors("AllowSwaggerUI");
+app.UseSwagger();
+
+app.UseSwaggerUI(c =>
+{
+    c.OAuthClientId("swagger");
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Knowledge Space API V1");
+});
 
 app.Run();

@@ -1,9 +1,11 @@
-namespace KnowledgeSpace.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
-public class Pagination<T>
+namespace KnowledgeSpace.ViewModels
 {
-    public List<T> Items { get; set; }
-    
-    public int TotalRecords { get; set; }
-    
+    public class Pagination<T> : PaginationBase where T : class
+    {
+        public List<T> Items { get; set; }
+    }
 }

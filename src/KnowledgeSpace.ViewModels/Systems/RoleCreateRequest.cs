@@ -1,7 +1,13 @@
-namespace KnowledgeSpace.ViewModels.Systems;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
-public class RoleCreateRequest
+namespace KnowledgeSpace.ViewModels.Systems
 {
-    public string Id { get; set; }
-    public string Name { get; set; }
+    public class RoleCreateRequest
+    {
+        public string Id { get; set; }
+
+        public string Name { get; set; }
+    }
 }

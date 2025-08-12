@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -29,6 +30,10 @@ namespace KnowledgeSpace.ViewModels.Contents
 
         public string Note { get; set; }
 
-        public string Labels { get; set; }
+        public string[] Labels { get; set; }
+
+        public List<IFormFile> Attachments { get; set; }
+
+        public string CaptchaCode { get; set; }
     }
 }

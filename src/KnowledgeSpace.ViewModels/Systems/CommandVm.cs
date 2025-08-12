@@ -1,8 +1,13 @@
-namespace KnowledgeSpace.ViewModels.Systems;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
-public class CommandVm
+namespace KnowledgeSpace.ViewModels.Systems
 {
-    public string Id { get; set; }
+    public class CommandVm
+    {
+        public string Id { get; set; }
 
-    public string Name { get; set; }
+        public string Name { get; set; }
+    }
 }
