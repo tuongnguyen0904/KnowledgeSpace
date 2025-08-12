@@ -13,10 +13,14 @@ namespace KnowledgeSpace.BackendServer.Controllers;
 public class UsersController : BaseController
 {
     private readonly UserManager<User> _userManager;
+    private readonly RoleManager<IdentityRole> _roleManager;
+    private readonly ApplicationDbContext _context;
 
-    public UsersController(UserManager<User> userManager)
+    public UsersController(UserManager<User> userManager, ApplicationDbContext context, RoleManager<IdentityRole> roleManager)
     {
         _userManager = userManager;
+        _context = context;
+        _roleManager = roleManager;
     }
 
     [HttpPost]
@@ -138,6 +142,22 @@ public class UsersController : BaseController
         return BadRequest(result.Errors);
     }
     
+    [HttpPut("{id}/changePassword")]
+    public async Task<IActionResult> PutUserPassword(string id, [FromBody] UserPasswordChangeRequest request)
+    {
+        var user = await _userManager.FindByIdAsync(id);
+        if (user == null)
+            return NotFound();
+
+        var result = await _userManager.ChangePasswordAsync(user,  request.CurrentPassword, request.NewPassword);
+        if (result.Succeeded)
+        {
+            return NoContent();
+        }
+
+        return BadRequest(result.Errors);
+    }
+    
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteUser(string id)
     {
@@ -162,6 +182,34 @@ public class UsersController : BaseController
         }
 
         return BadRequest(result.Errors);
+    }
+    
+    [HttpGet("{userId}/menu")]
+    public async Task<IActionResult> GetMenuByUserPermission(string userId)
+    {
+        var user = await _userManager.FindByIdAsync(userId);
+        var roles = await _userManager.GetRolesAsync(user);
+        var query = from f in _context.Functions
+            join p in _context.Permissions
+                on f.Id equals p.FunctionId
+            join r in _roleManager.Roles on p.RoleId equals r.Id
+            join a in _context.Commands
+                on p.CommandId equals a.Id
+            where roles.Contains(r.Name) && a.Id == "VIEW"
+            select new FunctionsVm
+            {
+                Id = f.Id,
+                Name = f.Name,
+                Url = f.Url,
+                ParentId = f.ParentId,
+                SortOrder = f.SortOrder,
+                Icon = f.Icon
+            };
+        var data = await query.Distinct()
+            .OrderBy(x => x.ParentId)
+            .ThenBy(x => x.SortOrder)
+            .ToListAsync();
+        return Ok(data);
     }
 
 }

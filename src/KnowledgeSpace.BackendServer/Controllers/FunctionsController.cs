@@ -19,6 +19,10 @@ public class FunctionsController: BaseController
     [HttpPost]
     public async Task<IActionResult> PostFunctions([FromBody]FunctionsCreateRequest request)
     {
+        var dbFunction = await _context.Functions.FindAsync(request.Id);
+        if (dbFunction != null)
+            return BadRequest($"Function with id {request.Id} is existed.");
+
         var functions = new Function()
         {
             Id = request.Id,
@@ -156,7 +160,7 @@ public class FunctionsController: BaseController
         return BadRequest();
     }
     
-    [HttpGet("{functionId}/commands")]
+    [HttpGet("{functionId}/commands")] 
     public async Task<IActionResult> GetCommandsInFunction(string functionId)
     {
         var query = from a in _context.Commands
@@ -181,6 +185,7 @@ public class FunctionsController: BaseController
 
         return Ok(data);
     }
+    
     
     [HttpPost("{functionId}/commands")]
     public async Task<IActionResult> PostCommandToFunction(string functionId, [FromBody]AddCommandToFunctionRequest request)
@@ -235,6 +240,7 @@ public class FunctionsController: BaseController
             return BadRequest();
         }
     }
+
 
     
 }

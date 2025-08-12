@@ -6,3 +6,5 @@ riderModule.iml
 /KnowledgeSpace.sln
 .DS_Store
 /KnowledgeSpace.sln
+/src/KnowledgeSpace.BackendServer/KnowledgeSpace.BackendServer.csproj
+tempkey.jwk
